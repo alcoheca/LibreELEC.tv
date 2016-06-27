@@ -1,3 +1,10 @@
+1.6
+- changed drivers a bit
+- dropped ljalves for tbs official
+
+1.5
+- removed unused drivers
+
 1.4
 - Add Digital Devices (manufacturer) support
 

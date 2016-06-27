@@ -36,55 +36,61 @@ def reboot():
 
 def tbs():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-tbs')
+	LF.write('4.4.13-tbs')
 	LF.close()
 	reboot()
 
 def tbsdvbc():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-tbs-dvbc')
+	LF.write('4.4.13-tbs-dvbc')
 	LF.close()
 	reboot()
 
 def crazycat():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-crazycat')
+	LF.write('4.4.13-crazycat')
 	LF.close()
 	reboot()
 
-#def ljalves():
-#	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-#	LF.write('4.4.7-ljalves')
-#	LF.close()
-#	reboot()
+def ljalves():
+	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
+	LF.write('4.4.13-ljalves')
+	LF.close()
+	reboot()
 
 def ljalvescc():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-ljalves-cc')
+	LF.write('4.4.13-ljalves-cc')
 	LF.close()
 	reboot()
 
 def tbs_oss():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-tbs-oss')
+	LF.write('4.4.13-tbs-oss')
 	LF.close()
 	reboot()
 
 def mediabuild():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-media_build')
+	LF.write('4.4.13-media_build')
 	LF.close()
 	reboot()
 
 def dvbsky():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-dvbsky')
+	LF.write('4.4.13-dvbsky')
 	LF.close()
 	reboot()
 
 def digital_devices():
 	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
-	LF.write('4.4.7-digital_devices')
+	LF.write('4.4.13-digital_devices')
+	LF.close()
+	reboot()
+
+def digital_devices_cc():
+	LF = open('/storage/downloads/dvb-drivers.txt', 'w')
+	LF.write('4.4.13-digital_devices-cc')
 	LF.close()
 	reboot()
 
@@ -104,12 +110,14 @@ elif args == 'ljalves':
 elif args == 'ljalvescc':
 	ljalvescc()
 elif args == 'tbs_oss':
-	ljalvescc()
+	tbs_oss()
 elif args == 'mediabuild':
 	mediabuild()
 elif args == 'dvbskyc':
 	dvbsky()
 elif args == 'digital_devices':
 	digital_devices()
+elif args == 'digital_devices_cc':
+	digital_devices_cc()
 else:
 	xbmc.executebuiltin('Addon.OpenSettings(script.dvb.driver)')

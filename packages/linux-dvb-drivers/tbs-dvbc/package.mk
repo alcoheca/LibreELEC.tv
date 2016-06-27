@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="tbs-dvbc"
-PKG_VERSION="160405"
+PKG_VERSION="160630"
 PKG_REV="1"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"

@@ -41,7 +41,7 @@ echo "cleaning media_build sources ..."
 # ljalves tbs drivers dl
 echo "getting ljalves sources ... !!! huge !!!"
   if [ ! -d linux_media.git ]; then
-    git clone --depth=1 https://github.com/crazycat69/linux_media.git -b si2168 ${DVB_MKPKG_NAME}/media
+    git clone --depth=1 https://github.com/crazycat69/linux_media.git -b latest ${DVB_MKPKG_NAME}/media
   fi
 
   cd ${DVB_MKPKG_NAME}/media

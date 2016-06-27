@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="tbs-oss"
-PKG_VERSION="22.05"
+PKG_VERSION="2016-09-01"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -47,9 +47,7 @@ make_target() {
 makeinstall_target() {
   mkdir -p $INSTALL/lib/modules/$KERNEL_VER/updates/media_build
 
-# does this anything ?
-#  find $ROOT/$PKG_BUILD/media_build/v4l/ -name \*.ko -exec strip --strip-debug {} \;
-  
+  find $ROOT/$PKG_BUILD/media_build/v4l/ -name \*.ko -exec strip --strip-debug {} \;
   find $ROOT/$PKG_BUILD/media_build/v4l/ -name \*.ko -exec cp {} $INSTALL/lib/modules/$KERNEL_VER/updates/media_build \;
 }
 

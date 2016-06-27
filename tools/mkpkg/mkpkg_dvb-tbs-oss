@@ -18,7 +18,7 @@
 ################################################################################
 
 # name of the package
-DVB_MKPKG_NAME="dddvb"
+DVB_MKPKG_NAME="tbs-oss"
 
 # remove old ljalves files
 echo "removing old sources ..."
@@ -30,7 +30,7 @@ rm -rf ${DVB_MKPKG_NAME}-*
 # media_build dl
 echo "getting media_build sources ..."
   if [ ! -d media_build.git ]; then
-    git clone --depth=1 https://bitbucket.org/CrazyCat/media_build.git ${DVB_MKPKG_NAME}/media_build
+    git clone --depth=1 https://github.com/tbsdtv/media_build.git ${DVB_MKPKG_NAME}/media_build
   fi
 
 echo "cleaning media_build sources ..."
@@ -41,7 +41,7 @@ echo "cleaning media_build sources ..."
 # ljalves tbs drivers dl
 echo "getting ljalves sources ... !!! huge !!!"
   if [ ! -d linux_media.git ]; then
-    git clone --depth=1 https://github.com/herrnst/dddvb-linux-kernel.git -b mediatree/master-ddbridge-testing ${DVB_MKPKG_NAME}/media
+    git clone --depth=1 https://github.com/tbsdtv/linux_media.git -b latest ${DVB_MKPKG_NAME}/media
   fi
 
   cd ${DVB_MKPKG_NAME}/media

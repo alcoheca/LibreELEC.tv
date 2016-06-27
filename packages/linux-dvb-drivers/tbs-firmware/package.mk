@@ -16,34 +16,36 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="script.dvb.driver"
-PKG_VERSION="1.6"
+PKG_NAME="tbs-firmware"
+PKG_VERSION="160630"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="OSS"
-PKG_SITE="http://www.libreelec.tv"
-PKG_DEPENDS_TARGET=""
-PKG_PRIORITY=""
-PKG_SECTION=""
-PKG_SHORTDESC="script.dvb.driver"
-PKG_LONGDESC="script.dvb.driver"
+PKG_LICENSE="Free-to-use"
+PKG_SITE="http://www.tbsdtv.com/english/Download.html"
+PKG_URL="http://www.tbsdtv.com/download/document/common/tbs-linux-drivers_v${PKG_VERSION}.zip"
+PKG_DEPENDS_TARGET="toolchain"
+PKG_PRIORITY="optional"
+PKG_SECTION="firmware"
+PKG_SHORTDESC="dvb-firmware: firmwares for various DVB drivers"
+PKG_LONGDESC="dvb-firmware: firmwares for various DVB drivers"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
+unpack() {
+  unzip -q $ROOT/$SOURCES/$PKG_NAME/$PKG_SOURCE_NAME -d $ROOT/$BUILD/$PKG_NAME-$PKG_VERSION
+}
+
+post_unpack() {
+  tar xjf $ROOT/$PKG_BUILD/linux-tbs-drivers.tar.bz2 -C $ROOT/$PKG_BUILD
+  chmod -R u+rwX $ROOT/$PKG_BUILD/linux-tbs-drivers/*
+}
+
 make_target() {
-  : # nothing to do here
+  cd $ROOT/$PKG_BUILD/linux-tbs-drivers
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/share/kodi/addons/$PKG_NAME/resources
-  cp -rP $PKG_DIR/addon/* $INSTALL/usr/share/kodi/addons/$PKG_NAME
-
-  if [ "$TARGET_ARCH" = x86_64 ]; then
-    cp $PKG_DIR/resources/settings_generic.xml $INSTALL/usr/share/kodi/addons/$PKG_NAME/resources/settings.xml
-  fi
-
-  if [ "$TARGET_ARCH" = arm ]; then
-    cp $PKG_DIR/resources/settings_arm.xml $INSTALL/usr/share/kodi/addons/$PKG_NAME/resources/settings.xml
-  fi 
+  mkdir -p $INSTALL/lib/firmware/
+  cp $ROOT/$PKG_BUILD/*.fw $INSTALL/lib/firmware/
 }

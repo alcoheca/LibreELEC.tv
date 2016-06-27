@@ -47,7 +47,40 @@ echo "getting ljalves sources ... !!! huge !!!"
     GIT_REV=`git log -n1 --pretty=format:"%ad" --date=short`
 
 # remove unnessecary files
+  rm -rf arch
+  rm -rf block
+  rm -rf certs
+  rm -rf crypto
   rm -rf Documentation
+
+  # clean drivers/
+  mkdir -p .tmp/staging
+  mv drivers/media/ .tmp/
+  mv drivers/staging/media/ .tmp/staging/
+  mv drivers/misc/ .tmp/
+  rm -rf drivers/*
+  mv .tmp/* drivers/
+
+  rm -rf fs
+  rm -rf init
+  rm -rf ipc
+  rm -rf kernel
+  rm -rf lib
+  rm -rf net
+  rm -rf samples
+  rm -rf scripts
+  rm -rf security
+ 
+  # clean sound/
+  mkdir .tmp/
+  mv sound/pci/ .tmp/
+  rm -rf sound/*
+  mv .tmp/* sound/
+
+  rm -rf tools
+  rm -rf usr
+  rm -rf virt
+  rm -rf .tmp
   cd ../..
 
 echo "copying ljalves sources ..."
