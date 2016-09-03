@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="pvr.zattoo"
-PKG_VERSION="d14d83f"
+PKG_VERSION="4d56db6"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -32,6 +32,11 @@ PKG_AUTORECONF="no"
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_TYPE="xbmc.pvrclient"
+
+#pre_configure_target() {
+#  export YAJL_INCLUDE_DIR=$(get_build_dir yajl)/
+#  echo "$YAJL_INCLUDE_DIR"
+#}
 
 configure_target() {
   cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
