@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="tbs-firmware"
-PKG_VERSION="160630"
+PKG_VERSION="160919"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="Free-to-use"
