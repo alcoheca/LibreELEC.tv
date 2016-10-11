@@ -1,0 +1,15 @@
+diff --git a/1080i/Settings.xml b/1080i/Settings.xml
+--- a/1080i/Settings.xml
++++ b/1080i/Settings.xml
+@@ -151,6 +151,11 @@
+ 					<icon>icons/settings/libreelec.png</icon>
+ 				</item>
+ 				<item>
++					<label>DVB Drivers</label>
++					<onclick>Addon.OpenSettings(script.dvb.driver)</onclick>
++					<icon>icons/settings/dvb.png</icon>
++				</item>
++				<item>
+ 					<label>$LOCALIZE[138]</label>
+ 					<onclick>ActivateWindow(systeminfo)</onclick>
+ 					<icon>icons/settings/sysinfo.png</icon>

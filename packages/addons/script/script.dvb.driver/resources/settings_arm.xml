@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category>
+        <setting label="TBS Cards" type="lsep"/>
+        <setting label="Official TBS open source drivers (formerly ljalves)" type="action" action="RunScript(script.dvb.driver, tbs_oss)"/>
+        <setting label="CrazyCat-CC (TBS open source drivers fork)" type="action" action="RunScript(script.dvb.driver, ljalvescc)"/>
+
+        <setting label="Different Cards" type="lsep"/>
+        <setting label="Media_Build (DVB drivers from latest kernel)" type="action" action="RunScript(script.dvb.driver, mediabuild)"/>
+    </category>
+</settings>
