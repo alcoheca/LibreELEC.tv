@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="minisatip"
-PKG_VERSION="f68630c"
-PKG_REV="91"
+PKG_VERSION="bd493b1"
+PKG_REV="92"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/catalinii/minisatip"
@@ -34,8 +34,6 @@ PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Minisatip"
 PKG_ADDON_TYPE="xbmc.service"
 
-PKG_CONFIGURE_OPTS_TARGET="--host="$CC" --disable-dvbaes --enable-dvbca --enable-dvbcsa"
-
 pre_configure_target() {
   # minisatip fails to build in subdirs
   cd $ROOT/$PKG_BUILD
@@ -43,21 +41,12 @@ pre_configure_target() {
 }
 
 pre_make_target() {
-  DVB_APPS_DIR=$(get_build_dir dvb-apps)
-  export LDFLAGS="$LDFLAGS $DVB_APPS_DIR/lib/libucsi/libucsi.a \
-                           $DVB_APPS_DIR/lib/libdvbapi/libdvbapi.a \
-                           $SYSROOT_PREFIX/usr/lib/libdvbcsa.a \
-                           -lpthread"
-  export CFLAGS="$CFLAGS -I$DVB_APPS_DIR/lib"
+  LDFLAGS="$LDFLAGS -lpthread"
 }
 
-make_target() {
-  make EXTRA_CFLAGS="$CFLAGS"
-}
- 
 makeinstall_target() {
   : # nop
-} 
+}
 
 addon() {
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/bin
