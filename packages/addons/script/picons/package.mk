@@ -16,18 +16,32 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="zstandard"
-PKG_VERSION="1.1.2"
-PKG_REV="1"
+PKG_NAME="picons"
+PKG_VERSION=""
+PKG_REV="100"
 PKG_ARCH="any"
-PKG_LICENSE="BSD-3"
-PKG_SITE="http://www.zstd.net"
-PKG_URL="https://github.com/facebook/zstd/archive/v${PKG_VERSION}.tar.gz"
-PKG_SOURCE_DIR="zstd-${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain"
-PKG_SECTION="compress"
-PKG_SHORTDESC="fast real-time compression algorithm"
-PKG_LONGDESC="fast real-time compression algorithm"
-
-PKG_IS_ADDON="no"
+PKG_LICENSE="GPL"
+PKG_SITE=""
+PKG_URL=""
+PKG_DEPENDS_TARGET="toolchain zstandard"
+PKG_SECTION="script"
+PKG_SHORTDESC="Download Picons"
+PKG_LONGDESC="Picons Downloader ($PKG_VERSION): "
 PKG_AUTORECONF="no"
+
+PKG_IS_ADDON="yes"
+PKG_ADDON_NAME="Picons Downloader"
+PKG_ADDON_TYPE="dummy"
+
+make_target() {
+  : # nop
+}
+
+makeinstall_target() {
+  : # nop
+}
+
+addon() {
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/bin/
+  cp -P $(get_build_dir zstandard)/zstd $ADDON_BUILD/$PKG_ADDON_ID/bin
+}
