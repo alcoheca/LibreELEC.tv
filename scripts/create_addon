@@ -88,6 +88,7 @@ pack_addon() {
   done
 
   if [ -f $PKG_DIR/changelog.txt ]; then
+    cp $PKG_DIR/changelog.txt $ADDON_BUILD/$PKG_ADDON_ID
     sed -e "/@PKG_ADDON_NEWS@/ \
            {
              r $PKG_DIR/changelog.txt
