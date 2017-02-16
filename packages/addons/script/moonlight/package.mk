@@ -19,7 +19,7 @@
 PKG_NAME="moonlight"
 PKG_VERSION="391de3f"
 PKG_VERSION_NUMBER="2.2.2"
-PKG_REV="105"
+PKG_REV="106"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/dead/script.moonlight"
@@ -35,6 +35,10 @@ PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Moonlight"
 PKG_ADDON_TYPE="xbmc.service.pluginsource"
 PKG_ADDON_PROVIDES="executable"
+
+if [ "$TARGET_ARCH" = x86_64 ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libvdpau-va-gl"
+fi
 
 post_unpack() {
   # don't use the files from the script
@@ -76,6 +80,10 @@ addon() {
     fi
 
     cp -P $(get_build_dir libevdev)/.install_pkg/usr/lib/libevdev.so* $ADDON_BUILD/$PKG_ADDON_ID/lib
+    
+    if [ "$TARGET_ARCH" = x86_64 ]; then
+      cp $(get_build_dir libvdpau-va-gl)/.install_pkg/usr/lib/vdpau/libvdpau_va_gl.so $ADDON_BUILD/$PKG_ADDON_ID/lib
+    fi
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/etc
     cp -P $(get_build_dir moonlight-embedded)/moonlight.conf $ADDON_BUILD/$PKG_ADDON_ID/etc

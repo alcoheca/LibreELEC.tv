@@ -1,3 +1,6 @@
+106
+- fixed missing lib that prevents function at Generic
+
 105
 - update moonlight-embedded to support GFE 3.2
 
