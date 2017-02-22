@@ -226,10 +226,58 @@ if [ -n "$DEVICE" -a -d "$PROJECT_DIR/$PROJECT/devices/$DEVICE/filesystem" ]; th
 fi
 
 # run depmod
-MODVER=$(basename $(ls -d $INSTALL/usr/lib/modules/*))
-find $INSTALL/usr/lib/modules/$MODVER/ -name *.ko | \
-  sed -e "s,$INSTALL/usr/lib/modules/$MODVER/,," > $INSTALL/usr/lib/modules/$MODVER/modules.order
-$ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL/usr $MODVER 2> /dev/null
+MODVER=`ls $BUILD/linux-*/.install_pkg/lib/modules`
+
+# move original modules dir
+mv -f $INSTALL/usr/lib/modules/$MODVER $INSTALL/usr/lib/modules/$MODVER-core
+ln -sf /storage/.modules/$MODVER $INSTALL/usr/lib/modules/$MODVER
+
+# Core
+find $INSTALL/usr/lib/modules/$MODVER-core/ -name *.ko | \
+  sed -e "s,$INSTALL/usr/lib/modules/$MODVER-core/,," > $INSTALL/usr/lib/modules/$MODVER-core/modules.order
+$ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-core 2> /dev/null
+
+# Media_Build
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-mb" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-mb/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-mb/,," > $INSTALL/usr/lib/modules/$MODVER-mb/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-mb 2> /dev/null
+fi
+
+# CrazyCat
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-cc" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-cc/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-cc/,," > $INSTALL/usr/lib/modules/$MODVER-cc/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-cc 2> /dev/null
+fi
+
+# TBS-oss
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-tbsoss" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-tbsoss/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-tbsoss/,," > $INSTALL/usr/lib/modules/$MODVER-tbsoss/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-tbsoss 2> /dev/null
+fi
+
+# TBS
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-tbs" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-tbs/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-tbs/,," > $INSTALL/usr/lib/modules/$MODVER-tbs/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-tbs 2> /dev/null
+fi
+
+# TBS DVBC
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-tbsc" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-tbsc/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-tbsc/,," > $INSTALL/usr/lib/modules/$MODVER-tbsc/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-tbsc 2> /dev/null
+fi
+
+# DigitalDevices
+if [ -d "$INSTALL/usr/lib/modules/$MODVER-dd" ]; then
+  find $INSTALL/usr/lib/modules/$MODVER-dd/ -name *.ko | \
+    sed -e "s,$INSTALL/usr/lib/modules/$MODVER-dd/,," > $INSTALL/usr/lib/modules/$MODVER-dd/modules.order
+  $ROOT/$TOOLCHAIN/bin/depmod -b $INSTALL $MODVER-dd 2> /dev/null
+fi
 
 # strip kernel modules
 for MOD in `find $INSTALL/usr/lib/modules/ -type f -name *.ko`; do
