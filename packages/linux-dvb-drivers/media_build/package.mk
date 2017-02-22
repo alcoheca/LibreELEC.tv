@@ -17,13 +17,21 @@
 ################################################################################
 
 PKG_NAME="media_build"
-PKG_VERSION="2017-01-22"
+PKG_VERSION="785cdf7"
+
+# choose "LATEST" or a date like "2014-12-01-e8bd888" for the driver package
+# chose from here http://linuxtv.org/downloads/drivers/
+#
+# the media_build and the actually used package have to fit together because
+# master of media_build follows master of media_tree
+
+MEDIA_BUILD_VERSION="2017-02-08-9eeb0ed0f309"
+
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="https://github.com/crazycat69/linux_media"
-PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_SITE="http://git.linuxtv.org/media_build.git"
+PKG_URL="http://mycvh.de/libreelec/$PKG_NAME/$PKG_NAME-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain linux"
-PKG_BUILD_DEPENDS_TARGET="toolchain linux"
 PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_SECTION="driver"
 PKG_SHORTDESC="DVB drivers that replace the version shipped with the kernel"
@@ -37,24 +45,23 @@ pre_make_target() {
 }
 
 make_target() {
-  make untar
-
-  # copy config file
-  if [ "$PROJECT" = Generic ] || [ "$PROJECT" = Virtual ]; then
-    if [ -f $PKG_DIR/config/generic.config ]; then
-      cp $PKG_DIR/config/generic.config v4l/.config
-    fi
-  else
-    if [ -f $PKG_DIR/config/usb.config ]; then
-      cp $PKG_DIR/config/usb.config v4l/.config
-    fi
-  fi
-
-  # add menuconfig to edit .config
+  $SED -i  -e "/^LATEST_TAR/s/-LATEST/-$MEDIA_BUILD_VERSION/g" linux/Makefile
+  make VER=$KERNEL_VER SRCDIR=$(kernel_path) -C linux/ download
+  make VER=$KERNEL_VER SRCDIR=$(kernel_path) -C linux/ untar
+  make VER=$KERNEL_VER SRCDIR=$(kernel_path) stagingconfig
   make VER=$KERNEL_VER SRCDIR=$(kernel_path)
 }
 
 makeinstall_target() {
-  mkdir -p $INSTALL/usr/lib/modules/$KERNEL_VER/updates
-  find $ROOT/$PKG_BUILD/v4l/ -name \*.ko -exec cp {} $INSTALL/usr/lib/modules/$KERNEL_VER/updates \;
+  : # nothing
+}
+
+post_install() {
+  MOD_VER=$(get_module_dir)
+
+  # install media_build drivers
+  cp -Pa $INSTALL/usr/lib/modules/$MOD_VER $INSTALL/usr/lib/modules/$MOD_VER-mb
+  mkdir -p $INSTALL/usr/lib/modules/$MOD_VER-mb/updates/mb
+  find $ROOT/$PKG_BUILD/v4l/ -name \*.ko -exec cp {} $INSTALL/usr/lib/modules/$MOD_VER-mb/updates/mb \;
+  echo "Media_Build drivers version: $PKG_VERSION" > $INSTALL/lib/usr/modules/$MOD_VER-mb/updates/mb-drivers.txt
 }
